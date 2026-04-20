@@ -1,0 +1,18 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: #f6f1e7;
+  color: #101010;
+}
+
+iframe {
+  border: 0;
+}

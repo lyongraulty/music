@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Footer Mockup 01 - Restrained</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: #f6f1e7;
+        color: #101010;
+        font-family: "PT Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+      }
+
+      .page-spacer {
+        min-height: 48vh;
+        display: grid;
+        place-items: center;
+        color: rgba(16, 16, 16, 0.36);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 11px;
+      }
+
+      footer {
+        min-height: 420px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: clamp(2rem, 5vw, 4rem);
+        padding: clamp(4rem, 9vw, 8rem) clamp(1rem, 3vw, 2rem);
+        border-top: 1px solid rgba(16, 16, 16, 0.12);
+      }
+
+      h1 {
+        max-width: 920px;
+        margin: 0;
+        font-family: "Arial Black", Impact, sans-serif;
+        font-size: clamp(2rem, 6vw, 5rem);
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      a,
+      button {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 1rem;
+        border: 1px solid rgba(16, 16, 16, 0.18);
+        background: transparent;
+        color: #101010;
+        font: inherit;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        text-decoration: none;
+      }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 1rem;
+        border-top: 1px solid rgba(16, 16, 16, 0.12);
+        padding-top: 1rem;
+        color: rgba(16, 16, 16, 0.46);
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-spacer">Footer placement preview</div>
+    <footer>
+      <h1>Available for bookings, recording sessions, arranging, and select touring.</h1>
+      <div class="actions">
+        <a href="https://www.instagram.com/lyongraultymusic/">Instagram</a>
+        <button type="button">Email</button>
+        <a href="https://lyongraulty.com/">Motion Design</a>
+      </div>
+      <div class="meta">
+        <span>Copyright 2026 Lyon Graulty Creative</span>
+        <span>Austin, TX</span>
+      </div>
+    </footer>
+  </body>
+</html>

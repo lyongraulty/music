@@ -41,15 +41,17 @@
   padding: clamp(2.4rem, 6vw, 5rem) clamp(1rem, 2.6vw, 1.5rem) clamp(2rem, 4vw, 3.2rem);
   border-bottom: 1px solid rgba(16, 16, 16, 0.12);
   display: grid;
-  grid-template-columns: 1fr 1.6fr;
-  gap: clamp(1.6rem, 3vw, 3rem);
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 0.85fr);
+  gap: clamp(2rem, 5vw, 5rem);
   align-items: start;
+  min-width: 0;
 }
 
 .introLeft {
   display: flex;
   flex-direction: column;
-  gap: 1.4rem;
+  gap: clamp(1.6rem, 3vw, 2.4rem);
+  min-width: 0;
 }
 
 .hero {
@@ -57,6 +59,7 @@
   height: clamp(280px, 48vh, 580px);
   overflow: hidden;
   border-bottom: 1px solid rgba(16, 16, 16, 0.12);
+  position: relative;
 }
 
 .heroPhoto {
@@ -75,6 +78,21 @@
   gap: 0.8rem;
 }
 
+.moduleHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(16, 16, 16, 0.16);
+  padding-bottom: 0.45rem;
+}
+
+.moduleHeader span {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: rgba(16, 16, 16, 0.34);
+}
+
 .introShowsLabel {
   margin: 0;
   font-size: 10px;
@@ -87,8 +105,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  padding-top: 1.4rem;
-  border-top: 1px solid rgba(16, 16, 16, 0.1);
+  padding-top: clamp(0.2rem, 1vw, 0.6rem);
 }
 
 .introHead {
@@ -99,20 +116,22 @@
 
 .introPre {
   margin: 0;
-  font-size: 10px;
-  letter-spacing: 0.18em;
+  font-size: clamp(0.78rem, 1.4vw, 1rem);
+  line-height: 1.4;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(16, 16, 16, 0.48);
+  color: rgba(16, 16, 16, 0.62);
 }
 
 .introTitle {
   margin: 0;
   font-family: var(--font-archivo-black), "Arial Black", sans-serif;
-  font-size: clamp(2.4rem, 6vw, 4.8rem);
+  font-size: clamp(3rem, 8vw, 7.2rem);
   line-height: 0.93;
   letter-spacing: 0;
   text-transform: uppercase;
   color: #101010;
+  overflow-wrap: anywhere;
 }
 
 .introAccent {
@@ -122,29 +141,58 @@
 .introBio {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
-  padding-top: clamp(0.5rem, 2vw, 1.4rem);
-  font-size: 12px;
-  line-height: 1.8;
+  gap: 1rem;
+  width: min(100%, 700px);
+  min-width: 0;
+  justify-self: start;
+  position: sticky;
+  top: clamp(1rem, 3vw, 2rem);
+  max-height: calc(100svh - clamp(2rem, 6vw, 4rem));
+  overflow: auto;
+  scrollbar-gutter: stable;
+  padding: clamp(0.5rem, 2vw, 1.4rem) clamp(1rem, 4vw, 4rem) 0 clamp(1rem, 3vw, 2rem);
+  border-left: 1px solid rgba(16, 16, 16, 0.14);
+  font-size: 14px;
+  line-height: 1.85;
   color: rgba(16, 16, 16, 0.78);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.introBio::-webkit-scrollbar {
+  display: none;
 }
 
 .introBio p {
   margin: 0;
 }
 
+.bioLabel {
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid rgba(16, 16, 16, 0.16);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: rgba(16, 16, 16, 0.48);
+}
+
 .calendarOuter {
   width: 100%;
+  max-width: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 .calendarInner {
   width: 800px;
   height: 380px;
-  position: relative;
+  position: absolute;
+  inset: 0 auto auto 0;
   overflow: hidden;
   transform-origin: top left;
   mix-blend-mode: multiply;
+  max-width: none;
 }
 
 .calendarInner iframe {
@@ -160,45 +208,168 @@
 
 .spotifyGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.6rem;
 }
 
 .spotifyGrid iframe {
   width: 100%;
+  max-width: 100%;
   display: block;
   border-radius: 10px;
 }
 
 .bandcampStack {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 0.8rem;
+  min-width: 0;
+}
+
+.videoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.8rem;
+}
+
+.videoWrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #101010;
+}
+
+.youtubeVideo {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .bandcampItem {
-  border-top: 1px solid rgba(16, 16, 16, 0.1);
-  padding: clamp(0.8rem, 2vw, 1.2rem) 0;
-}
-
-.bandcampItem:first-child {
-  border-top: none;
-  padding-top: 0;
+  min-width: 0;
 }
 
 .bandcampItem iframe {
   width: 100%;
+  max-width: 100%;
+  height: 240px;
   display: block;
 }
 
 .soundcloudWrap iframe {
   width: 100%;
+  max-width: 100%;
+  height: 520px;
   display: block;
   border-radius: 10px;
 }
 
-@media (max-width: 600px) {
+.footer {
+  min-height: clamp(320px, 42vw, 520px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1.4rem, 3vw, 2.2rem);
+  padding: clamp(4rem, 9vw, 8rem) clamp(1rem, 2.6vw, 1.5rem);
+  border-top: 1px solid rgba(16, 16, 16, 0.12);
+}
+
+.footer p {
+  width: min(100%, 620px);
+  margin: 0;
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  line-height: 1.6;
+  color: rgba(16, 16, 16, 0.72);
+}
+
+.footerActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.footerActions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 1rem;
+  border: 1px solid rgba(16, 16, 16, 0.18);
+  background: transparent;
+  color: #101010;
+  text-decoration: none;
+  font: inherit;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.footerActions a:hover {
+  border-color: #e8380a;
+  background: #e8380a;
+  color: #ffffff;
+}
+
+.footerMeta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid rgba(16, 16, 16, 0.12);
+  padding-top: 1rem;
+  color: rgba(16, 16, 16, 0.46);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
   .intro {
     grid-template-columns: 1fr;
+    gap: clamp(1.8rem, 6vw, 2.6rem);
+  }
+
+  .introBio {
+    width: 100%;
+    position: static;
+    order: 1;
+    max-height: none;
+    overflow: visible;
+    padding: clamp(1.2rem, 4vw, 1.6rem) 0 0;
+    border-left: none;
+    border-top: 1px solid rgba(16, 16, 16, 0.14);
+    font-size: 13px;
+  }
+
+  .introLeft {
+    display: contents;
+  }
+
+  .introHead {
+    order: 0;
+  }
+
+  .introShows,
+  .introModule {
+    order: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    height: clamp(260px, 42vh, 420px);
+  }
+
+  .bandcampItem iframe {
+    height: 260px;
+  }
+
+  .soundcloudWrap iframe {
+    height: 560px;
   }
 }

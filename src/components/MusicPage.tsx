@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import type { CalendarEvent } from "@/lib/calendar";
 import styles from "./MusicPage.module.css";
 
 const spotifyEmbeds = [
@@ -39,23 +41,38 @@ const bioParagraphs = [
 ];
 
 export function MusicPage() {
-  const calendarOuterRef = useRef<HTMLDivElement>(null);
-  const calendarInnerRef = useRef<HTMLDivElement>(null);
   const [emailCopied, setEmailCopied] = useState(false);
+  const [shows, setShows] = useState<CalendarEvent[]>([]);
+  const [showsStatus, setShowsStatus] = useState<"loading" | "ready" | "error">("loading");
 
   useEffect(() => {
-    function scaleCalendar() {
-      const outer = calendarOuterRef.current;
-      const inner = calendarInnerRef.current;
-      if (!outer || !inner) return;
-      const scale = Math.min(1, outer.offsetWidth / 800);
-      inner.style.transform = `scale(${scale})`;
-      outer.style.height = `${380 * scale}px`;
+    let active = true;
+
+    async function loadShows() {
+      try {
+        setShowsStatus("loading");
+        const response = await fetch("/api/shows");
+        const data = (await response.json()) as { events?: CalendarEvent[] };
+
+        if (!response.ok || !data.events) {
+          throw new Error("Shows could not be loaded.");
+        }
+
+        if (active) {
+          setShows(data.events);
+          setShowsStatus("ready");
+        }
+      } catch {
+        if (active) {
+          setShowsStatus("error");
+        }
+      }
     }
 
-    scaleCalendar();
-    window.addEventListener("resize", scaleCalendar);
-    return () => window.removeEventListener("resize", scaleCalendar);
+    loadShows();
+    return () => {
+      active = false;
+    };
   }, []);
 
   async function copyEmail(event: React.MouseEvent<HTMLAnchorElement>) {
@@ -75,11 +92,13 @@ export function MusicPage() {
       </div>
 
       <div className={styles.hero}>
-        <img
+        <Image
           className={styles.heroPhoto}
-          src="/20240218_Lyon%20Graulty_HR-7129_BW_FULL.png"
+          src="/20240218_Lyon%20Graulty_HR-7129_BW_3840px.webp"
           alt="Lyon Graulty black and white portrait"
-          loading="eager"
+          fill
+          priority
+          sizes="100vw"
         />
       </div>
 
@@ -95,14 +114,44 @@ export function MusicPage() {
           <div className={styles.introShows}>
             <div className={styles.moduleHeader}>
               <p className={styles.introShowsLabel}>Upcoming Shows</p>
+              <span>{showsStatus === "ready" ? shows.length : showsStatus}</span>
             </div>
-            <div className={styles.calendarOuter} ref={calendarOuterRef}>
-              <div className={styles.calendarInner} ref={calendarInnerRef}>
-                <iframe
-                  src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FChicago&showPrint=0&showTitle=0&showNav=0&showDate=0&mode=AGENDA&showTabs=0&showTz=0&showCalendars=0&src=N2IzZTA5ZmYzYmM5ZmVkODU0NmVlYWUwMzEwYzNhZDhhYzBlMzUzMTY1ZGE0MmIxMjEwZjdhNmFiYjgwZjIwMEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23e8380a"
-                  title="Upcoming shows"
-                />
-              </div>
+            <div className={styles.showsPanel} aria-live="polite">
+              {showsStatus === "loading" && (
+                <div className={styles.showsState}>
+                  <span className={styles.showsPulse} />
+                  <p>Loading shows</p>
+                </div>
+              )}
+
+              {showsStatus === "error" && (
+                <div className={styles.showsState}>
+                  <p>Shows are temporarily unavailable. Refresh to try again.</p>
+                </div>
+              )}
+
+              {showsStatus === "ready" && shows.length === 0 && (
+                <div className={styles.showsState}>
+                  <p>No upcoming shows are listed right now.</p>
+                </div>
+              )}
+
+              {showsStatus === "ready" && shows.length > 0 && (
+                <ol className={styles.showsList}>
+                  {shows.map((show) => (
+                    <li className={styles.showItem} key={show.id}>
+                      <time className={styles.showDate} dateTime={show.start}>
+                        <span>{show.dateLabel}</span>
+                        <span>{show.timeLabel}</span>
+                      </time>
+                      <div className={styles.showInfo}>
+                        <p>{show.title}</p>
+                        {show.location && <span>{show.location}</span>}
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              )}
             </div>
           </div>
 

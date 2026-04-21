@@ -177,33 +177,96 @@
   color: rgba(16, 16, 16, 0.48);
 }
 
-.calendarOuter {
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-  position: relative;
+.showsPanel {
+  min-height: 380px;
+  border-bottom: 1px solid rgba(16, 16, 16, 0.12);
 }
 
-.calendarInner {
-  width: 800px;
-  height: 380px;
-  position: absolute;
-  inset: 0 auto auto 0;
-  overflow: hidden;
-  transform-origin: top left;
-  mix-blend-mode: multiply;
-  max-width: none;
+.showsList {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.calendarInner iframe {
-  width: 800px;
-  height: 600px;
-  position: absolute;
-  top: -65px;
-  left: -20px;
-  transform: scale(1.1);
-  transform-origin: top left;
-  pointer-events: none;
+.showItem {
+  display: grid;
+  grid-template-columns: minmax(96px, 0.28fr) minmax(0, 1fr);
+  gap: clamp(0.9rem, 2vw, 1.4rem);
+  padding: 0.78rem 0;
+  border-bottom: 1px solid rgba(16, 16, 16, 0.12);
+  min-width: 0;
+}
+
+.showDate {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  color: rgba(16, 16, 16, 0.68);
+  font-size: 10px;
+  line-height: 1.35;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.showDate span:first-child {
+  color: #e8380a;
+}
+
+.showInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+  min-width: 0;
+}
+
+.showInfo p {
+  margin: 0;
+  color: #101010;
+  font-size: clamp(0.86rem, 1.1vw, 0.95rem);
+  line-height: 1.38;
+  overflow-wrap: anywhere;
+}
+
+.showInfo span {
+  color: rgba(16, 16, 16, 0.5);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.showsState {
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(16, 16, 16, 0.56);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.showsState p {
+  margin: 0;
+}
+
+.showsPulse {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 auto;
+  background: #e8380a;
+  animation: pulseShow 900ms ease-in-out infinite alternate;
+}
+
+@keyframes pulseShow {
+  from {
+    opacity: 0.35;
+    transform: scaleY(0.55);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleY(1.45);
+  }
 }
 
 .spotifyGrid {

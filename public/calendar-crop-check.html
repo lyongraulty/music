@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Calendar Crop Check</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f1e7;
+        --ink: #101010;
+        --accent: #e8380a;
+        --line: rgba(16, 16, 16, 0.18);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family:
+          "Courier New",
+          Courier,
+          monospace;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.8rem 1rem;
+        border-bottom: 1px solid var(--line);
+        background: var(--accent);
+        color: white;
+      }
+
+      header p {
+        margin: 0;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      main {
+        display: grid;
+        gap: 2rem;
+        padding: 1rem;
+      }
+
+      section {
+        display: grid;
+        gap: 0.65rem;
+        min-width: 0;
+      }
+
+      .moduleHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 1rem;
+        padding-bottom: 0.45rem;
+        border-bottom: 1px solid var(--line);
+      }
+
+      h2,
+      .moduleHeader p {
+        margin: 0;
+        font-size: 11px;
+        font-weight: 400;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .moduleHeader span {
+        font-size: 10px;
+        color: rgba(16, 16, 16, 0.48);
+      }
+
+      .frame {
+        width: 100%;
+        max-width: 920px;
+        border: 1px solid var(--line);
+        background: white;
+        overflow: hidden;
+      }
+
+      iframe {
+        border: 0;
+        display: block;
+      }
+
+      .full iframe {
+        width: 800px;
+        height: 600px;
+      }
+
+      .crop {
+        width: 800px;
+        height: 380px;
+        position: relative;
+      }
+
+      .crop iframe {
+        width: 800px;
+        height: 600px;
+        position: absolute;
+        left: -20px;
+        transform: scale(1.1);
+        transform-origin: top left;
+      }
+
+      .current iframe {
+        top: -60px;
+      }
+
+      .higher iframe {
+        top: -20px;
+      }
+
+      .note {
+        max-width: 760px;
+        margin: 0;
+        color: rgba(16, 16, 16, 0.62);
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 860px) {
+        .frame {
+          overflow-x: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <p>Google Calendar Crop Check</p>
+      <p>Lyon Graulty Music</p>
+    </header>
+
+    <main>
+      <section>
+        <div class="moduleHeader">
+          <h2>1. Full Uncropped Embed</h2>
+          <span>800 x 600</span>
+        </div>
+        <p class="note">Baseline view. This is the raw agenda iframe before the page crops or scales it.</p>
+        <div class="frame full">
+          <iframe
+            src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FChicago&showPrint=0&showTitle=0&showNav=0&showDate=0&mode=AGENDA&showTabs=0&showTz=0&showCalendars=0&src=N2IzZTA5ZmYzYmM5ZmVkODU0NmVlYWUwMzEwYzNhZDhhYzBlMzUzMTY1ZGE0MmIxMjEwZjdhNmFiYjgwZjIwMEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23ffffff"
+            title="Full uncropped calendar"
+          ></iframe>
+        </div>
+      </section>
+
+      <section>
+        <div class="moduleHeader">
+          <h2>2. Current Crop Replica</h2>
+          <span>top -60px, left -20px, scale 1.1</span>
+        </div>
+        <p class="note">This mirrors the current production crop in <code>MusicPage.module.css</code>.</p>
+        <div class="frame crop current">
+          <iframe
+            src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FChicago&showPrint=0&showTitle=0&showNav=0&showDate=0&mode=AGENDA&showTabs=0&showTz=0&showCalendars=0&src=N2IzZTA5ZmYzYmM5ZmVkODU0NmVlYWUwMzEwYzNhZDhhYzBlMzUzMTY1ZGE0MmIxMjEwZjdhNmFiYjgwZjIwMEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23ffffff"
+            title="Current cropped calendar"
+          ></iframe>
+        </div>
+      </section>
+
+      <section>
+        <div class="moduleHeader">
+          <h2>3. Higher Crop Candidate</h2>
+          <span>top -20px, left -20px, scale 1.1</span>
+        </div>
+        <p class="note">This moves the viewport higher in the iframe by 45px, intended to reveal one more newest event while preserving the same visible module height.</p>
+        <div class="frame crop higher">
+          <iframe
+            src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FChicago&showPrint=0&showTitle=0&showNav=0&showDate=0&mode=AGENDA&showTabs=0&showTz=0&showCalendars=0&src=N2IzZTA5ZmYzYmM5ZmVkODU0NmVlYWUwMzEwYzNhZDhhYzBlMzUzMTY1ZGE0MmIxMjEwZjdhNmFiYjgwZjIwMEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23ffffff"
+            title="Higher crop calendar candidate"
+          ></iframe>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

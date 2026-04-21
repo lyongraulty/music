@@ -77,8 +77,8 @@ export function MusicPage() {
       <div className={styles.hero}>
         <img
           className={styles.heroPhoto}
-          src="https://portfolio-media.b-cdn.net/SYNC/media_live/site/lyongraulty_musicprofile.webp"
-          alt="Lyon Graulty"
+          src="/20240218_Lyon%20Graulty_HR-7129_BW_FULL.png"
+          alt="Lyon Graulty black and white portrait"
           loading="eager"
         />
       </div>
